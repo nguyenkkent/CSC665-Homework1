@@ -45,10 +45,15 @@ def shortest_path(source, target):
         currentState = currentNode.state
 
         # if found movie with source and target:
-        # construct path list from source to target.
+        # construct path list from source to target via Node.parent's instance variable
         if source == target:
             path = []
-            return path
+            while currentNode.parent is not None:
+                tuple = (currentNode.action, currentNode.state)
+                path.append(tuple)
+                # advance up the tree
+                currentNode = currentNode.parent
+            return reversed(path)
 
 
         # check node as visited and get neighbors
@@ -61,8 +66,6 @@ def shortest_path(source, target):
             if person_id not in visited:
                 neighborNode = Node(state=person_id, parent=currentNode, action=movie_id)
                 queue.append(neighborNode)
-
-
 
     return None
 
