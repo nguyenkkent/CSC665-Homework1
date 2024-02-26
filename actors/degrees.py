@@ -25,22 +25,40 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
-    #raise NotImplementedError
+    # raise NotImplementedError
     """
-    states are actors, actions are movies that connect two actors.
+    states are person_id
+    actions are movie_id
     """
-    #keep track of visited nodes
+    # keep track of visited nodes
+    visited = set();
 
-    #initialize queue
+    # populate queue with the root node
+    queue = []
+    root = Node(state=source, parent=None, action=None)
+    queue.append(root)
 
-    #BFS until queue is empty
-        #if found movie with source and target
-            #construct path list from source to target
-            #return path list
-        #add to neighbors
-        #get neighbors to current state
-        #add unexplored nodes to queue
+    # BFS
+    while queue:
+        # dequeue the first node
+        currentNode = queue.pop(0)
+        currentState = currentNode.state
 
+        # if found movie with source and target:
+        # construct path list from source to target.
+        if source == target:
+            path = []
+            return path
+
+
+        # check node as visited
+        visited.append(currentState)
+        # get neighbors list to current state
+        neighbors = neighbors_for_person(currentState)
+        # add next neighbors to queue. neighbors_for_person returns a set of tuples (movie_id, person_id)
+        # for people who starred with input parameter person_id.
+
+    return None
 
 def person_id_for_name(name):
     """
