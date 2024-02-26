@@ -30,8 +30,8 @@ def shortest_path(source, target):
     states are person_id
     actions are movie_id
     """
-    # keep track of visited nodes
-    visited = set();
+    # keep track of visited person_id nodes
+    visited = set()
 
     # populate queue with the root node
     queue = []
@@ -51,12 +51,18 @@ def shortest_path(source, target):
             return path
 
 
-        # check node as visited
-        visited.append(currentState)
-        # get neighbors list to current state
+        # check node as visited and get neighbors
+        visited.add(currentState)
         neighbors = neighbors_for_person(currentState)
+
         # add next neighbors to queue. neighbors_for_person returns a set of tuples (movie_id, person_id)
         # for people who starred with input parameter person_id.
+        for movie_id, person_id in neighbors:
+            if person_id not in visited:
+                neighborNode = Node(state=person_id, parent=currentNode, action=movie_id)
+                queue.append(neighborNode)
+
+
 
     return None
 
