@@ -25,7 +25,21 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
-    raise NotImplementedError
+    #raise NotImplementedError
+    """
+    states are actors, actions are movies that connect two actors.
+    """
+    #keep track of visited nodes
+
+    #initialize queue
+
+    #BFS until queue is empty
+        #if found movie with source and target
+            #construct path list from source to target
+            #return path list
+        #add to neighbors
+        #get neighbors to current state
+        #add unexplored nodes to queue
 
 
 def person_id_for_name(name):
