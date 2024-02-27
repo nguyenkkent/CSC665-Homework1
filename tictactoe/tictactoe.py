@@ -157,4 +157,22 @@ def minimax(board):
 
     If the board is a terminal board, the minimax function should return None.
     """
-    raise NotImplementedError
+    if terminal(board):
+        return None
+
+    currentPlayer = player(board)
+    possibleActions = actions(board)
+
+    # if current player is max
+    # value = -inf
+    # loop through actions
+        # look for the maximal value from all possible actions
+    # return that value
+
+    # if current player is min
+    # value = inf
+    # loop through actions
+        # look for the minimal value from all possible actions
+    # return that value
+
+
