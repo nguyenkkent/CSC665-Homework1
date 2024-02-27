@@ -1,4 +1,5 @@
 import math
+import copy
 
 # Use these constants to fill in the game board
 X = "X"
@@ -68,8 +69,16 @@ def succ(board, action):
     is not a correct implementation of this function. You’ll likely want to make a deep copy of the board first before
     making any changes.
     """
-    raise NotImplementedError
+    if action not in actions(board):
+        raise Exception("Invalid action")
 
+    # create the future board with action
+    successorBoard = copy.deepcopy(board)
+    currentPlayer = player(board)
+    row, col = action
+    successorBoard[row][col] = currentPlayer
+
+    return successorBoard
 
 def winner(board):
     """
