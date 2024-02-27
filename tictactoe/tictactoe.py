@@ -132,7 +132,10 @@ def utility(board):
 
     You may assume utility will only be called on a board if terminal(board) is True.
     """
-    raise NotImplementedError
+    result = winner(board)
+    if result == X: return 1
+    if result == O: return -1
+    return 0
 
 
 def minimax(board):
