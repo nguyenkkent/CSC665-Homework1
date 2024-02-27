@@ -94,7 +94,7 @@ def winner(board):
     """
     # check for winner in each row
     for row in board:
-        if EMPTY not in row[0] and row[0] == row[1] == row[2]:
+        if row[0] is not EMPTY and row[0] == row[1] == row[2]:
             return row[0]
     # check for winner in each column
     for col in range(3):
@@ -163,16 +163,39 @@ def minimax(board):
     currentPlayer = player(board)
     possibleActions = actions(board)
 
-    # if current player is max
-    # value = -inf
-    # loop through actions
-        # look for the maximal value from all possible actions
-    # return that value
+    if currentPlayer == X:
+        value = float("inf")
+        optimalAction = None
+        for action in possibleActions:
+            if value > recursionHelper(board):
+                optimalAction = action
+        return optimalAction
+    else:
+        value = float("-inf")
+        optimalAction = None
+        for action in possibleActions:
+            if value < recursionHelper(board):
+                optimalAction = action
+        return optimalAction
 
-    # if current player is min
-    # value = inf
-    # loop through actions
-        # look for the minimal value from all possible actions
-    # return that value
 
+# recursion function to determine winner
+def recursionHelper(board):
+    # board is filled, return winner
+    if terminal(board):
+        return utility(board)
+    currentPlayer = player(board)
+
+    # max player's turn
+    if currentPlayer == O:
+        value = float("inf")
+        for action in actions(board):
+            value = min(value, recursionHelper(succ(board, action)))
+        return value
+    # min player's turn
+    else:
+        value = float("-inf")
+        for action in actions(board):
+            value = max(value, recursionHelper(succ(board, action)))
+        return value
 
