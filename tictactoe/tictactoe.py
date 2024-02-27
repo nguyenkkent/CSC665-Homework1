@@ -22,7 +22,18 @@ def player(board):
     In the initial game state, X gets the first move. Subsequently, the player alternates with each additional move.
     Any return value is acceptable if a terminal board is provided as input (i.e., the game is already over).
     """
-    raise NotImplementedError
+    xCounter = 0
+    oCounter = 0
+    # scan the board
+    for row in range(3):
+        for col in range(3):
+            if board[row][col] == "X":
+                xCounter += 1
+            if board[row][col] == "O":
+                oCounter += 1
+
+    return "X" if xCounter == oCounter else "O"
+
 
 
 def actions(board):
