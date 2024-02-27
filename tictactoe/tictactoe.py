@@ -167,35 +167,33 @@ def minimax(board):
         value = float("inf")
         optimalAction = None
         for action in possibleActions:
-            if value > recursionHelper(board):
+            if value > findM
                 optimalAction = action
         return optimalAction
     else:
-        value = float("-inf")
-        optimalAction = None
-        for action in possibleActions:
-            if value < recursionHelper(board):
-                optimalAction = action
-        return optimalAction
+        pass
 
 
-# recursion function to determine winner
-def recursionHelper(board):
-    # board is filled, return winner
+# recursion chain function to determine winner
+def findMinHelper(board):
     if terminal(board):
         return utility(board)
-    currentPlayer = player(board)
 
-    # max player's turn
-    if currentPlayer == O:
-        value = float("inf")
-        for action in actions(board):
-            value = min(value, recursionHelper(succ(board, action)))
-        return value
-    # min player's turn
-    else:
-        value = float("-inf")
-        for action in actions(board):
-            value = max(value, recursionHelper(succ(board, action)))
-        return value
+    possibleActions = actions(board)
+    value = float("-inf")
+    for action in possibleActions:
+        value = max(value, findMaxHelper(succ(board, action)))
 
+    return value
+
+# recursion chain function to determine winner
+def findMaxHelper(board):
+    if terminal(board):
+        return utility(board)
+
+    possibleActions = actions(board)
+    value = float("-inf")
+    for action in possibleActions:
+        value = max(value, findMinHelper(succ(board, action)))
+
+    return value
