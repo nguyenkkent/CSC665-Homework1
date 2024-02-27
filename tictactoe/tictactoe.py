@@ -83,7 +83,22 @@ def winner(board):
     You may assume that there will be at most one winner (that is, no board will ever have both players with
     three-in-a-row, since that would be an invalid board state).
     """
+    # check for winner in each row
+    for row in board:
+        if EMPTY not in row[0] and row[0] == row[1] == row[2]:
+            return row[0]
+    # check for winner in each column
+    for col in range(3):
+        if board[col] is not EMPTY and board[0][col] == board[1][col] == board[2][col]:
+            return board[0][col]
 
+    # check for winner in diagonals
+    if board[0][0] is not EMPTY and board[0][0] == board[1][1] == board[2][2]:
+        return board[0][0]
+    if board[0][2] is not EMPTY and board[0][2] == board[1][1] == board[2][0]:
+        return board[0][2]
+
+    # tie
     return None
 
 
