@@ -42,20 +42,16 @@ def shortest_path(source, target):
     while queue:
         # dequeue the first node
         currentNode = queue.pop(0)
-        #print("Current node's state: ", currentNode.state)
         # if found movie with source and target:
         # construct path list from source to target via Node.parent's instance variable
         if currentNode.state == target:
             path = []
             while currentNode.parent is not None:
                 temp = (currentNode.action, currentNode.state)
-                print("Current temp: ", temp)
                 path.append(temp)
                 # advance up the tree
                 currentNode = currentNode.parent
                 path.reverse()
-                # print("Current tuple: ", temp)
-                # print("Final path: ", path)
             return path
 
         # check node as visited and get neighbors
@@ -67,7 +63,6 @@ def shortest_path(source, target):
         for movie_id, person_id in neighbors:
             if person_id not in visited:
                 neighborNode = Node(state=person_id, parent=currentNode, action=movie_id)
-                #print("neighbors has a length: ", len(neighbors))
                 queue.append(neighborNode)
 
     return None
@@ -151,10 +146,10 @@ def load_data(directory):
 
 
 def main():
-    # if len(sys.argv) > 2:
-    #     sys.exit("Usage: python degrees.py [directory]")
-    # directory = sys.argv[1] if len(sys.argv) == 2 else "large"
-    directory = "small"
+    if len(sys.argv) > 2:
+        sys.exit("Usage: python degrees.py [directory]")
+    directory = sys.argv[1] if len(sys.argv) == 2 else "large"
+
     # Load data from files into memory
     print("Loading data...")
     load_data(directory)
