@@ -111,7 +111,19 @@ def terminal(board):
 
     Otherwise, the function should return False if the game is still in progress.
     """
-    raise NotImplementedError
+    result = winner(board)
+    # X or O won
+    if result is not None:
+        return True
+
+    # assertion: board is filled or is still on going
+
+    # there are no more moves to make i.e. board is full
+    if actions(board) is None:
+        return True
+
+    # no winner yet and board is not full
+    return False
 
 
 def utility(board):
