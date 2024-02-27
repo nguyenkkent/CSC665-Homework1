@@ -22,18 +22,16 @@ def player(board):
     In the initial game state, X gets the first move. Subsequently, the player alternates with each additional move.
     Any return value is acceptable if a terminal board is provided as input (i.e., the game is already over).
     """
-    xCounter = 0
-    oCounter = 0
+    xCounter, oCounter = 0, 0
     # scan the board
     for row in range(3):
         for col in range(3):
-            if board[row][col] == "X":
+            if board[row][col] == X:
                 xCounter += 1
-            if board[row][col] == "O":
+            if board[row][col] == O:
                 oCounter += 1
 
-    return "X" if xCounter == oCounter else "O"
-
+    return X if xCounter == oCounter else O
 
 
 def actions(board):
@@ -48,7 +46,13 @@ def actions(board):
 
     Any return value is acceptable if a terminal board is provided as input.
     """
-    raise NotImplementedError
+    possibleMoves = set()
+    for row in range(3):
+        for col in range(3):
+            if board[row][col] is EMPTY:
+                possibleMoves.add((row, col))
+
+    return possibleMoves if len(possibleMoves) > 0 else None
 
 
 def succ(board, action):
@@ -79,7 +83,8 @@ def winner(board):
     You may assume that there will be at most one winner (that is, no board will ever have both players with
     three-in-a-row, since that would be an invalid board state).
     """
-    raise NotImplementedError
+
+    return None
 
 
 def terminal(board):
