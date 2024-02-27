@@ -167,15 +167,19 @@ def minimax(board):
         value = float("inf")
         optimalAction = None
         for action in possibleActions:
-            if value > recursionHelper(board):
+            tempValue = recursionHelper(succ(board, action))
+            if tempValue > value:
                 optimalAction = action
+                tempValue = value
         return optimalAction
     else:
         value = float("-inf")
         optimalAction = None
         for action in possibleActions:
-            if value < recursionHelper(board):
+            tempValue = recursionHelper(succ(board, action))
+            if tempValue < value:
                 optimalAction = action
+                tempValue = value
         return optimalAction
 
 
@@ -198,4 +202,3 @@ def recursionHelper(board):
         for action in actions(board):
             value = max(value, recursionHelper(succ(board, action)))
         return value
-
