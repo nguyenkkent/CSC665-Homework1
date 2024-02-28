@@ -128,11 +128,12 @@ def terminal(board):
     # assertion: board is filled or is still on going
 
     # there are no more moves to make i.e. board is full
-    if actions(board) is None:
-        return True
+    for row in board:
+        if EMPTY in row:
+            return False
 
     # no winner yet and board is not full
-    return False
+    return True
 
 
 def utility(board):
@@ -145,7 +146,6 @@ def utility(board):
     if result == X: return 1
     if result == O: return -1
     return 0
-
 
 def minimax(board):
     """
@@ -164,41 +164,42 @@ def minimax(board):
     possibleActions = actions(board)
 
     if currentPlayer == X:
-        value = float("inf")
-        optimalAction = None
-        for action in possibleActions:
-            tempValue = recursionHelper(succ(board, action))
-            if tempValue > value:
-                optimalAction = action
-                tempValue = value
-        return optimalAction
-    else:
         value = float("-inf")
         optimalAction = None
         for action in possibleActions:
-            tempValue = recursionHelper(succ(board, action))
-            if tempValue < value:
+            newValue = recursionHelper(succ(board, action))
+            if newValue > value:
+                value = newValue
                 optimalAction = action
-                tempValue = value
+        return optimalAction
+    else:
+        value = float("inf")
+        optimalAction = None
+        for action in possibleActions:
+            newValue = recursionHelper(succ(board, action))
+            if newValue < value:
+                value = newValue
+                optimalAction = action
         return optimalAction
 
 
 # recursion function to determine winner
 def recursionHelper(board):
-    # board is filled, return winner
+    # board is in terminal state, return utility
     if terminal(board):
         return utility(board)
+
     currentPlayer = player(board)
 
     # max player's turn
-    if currentPlayer == O:
-        value = float("inf")
-        for action in actions(board):
-            value = min(value, recursionHelper(succ(board, action)))
-        return value
-    # min player's turn
-    else:
+    if currentPlayer == X:
         value = float("-inf")
         for action in actions(board):
             value = max(value, recursionHelper(succ(board, action)))
+        return value
+    # min player's turn
+    else:
+        value = float("inf")
+        for action in actions(board):
+            value = min(value, recursionHelper(succ(board, action)))
         return value
